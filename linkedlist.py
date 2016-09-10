@@ -24,19 +24,6 @@ class LinkedList:
 		new_node.set_next(self.head)
 		self.head = new_node
 
-	def append_tail(self, data):
-		previous = None
-		current = self.head
-		count = 0
-		while current:
-			current = current.get_next()
-			count += 1
-		if current == None:
-			self.append_head(data)
-		else:
-			current.data = data
-
-
 	def length(self):
 		current = self.head
 		count = 0
