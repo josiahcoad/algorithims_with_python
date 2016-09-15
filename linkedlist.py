@@ -19,7 +19,7 @@ class LinkedList:
 	def __init__(self, head=None):
 		self.head = head
 	
-	def append_head(self, data):
+	def add(self, data):
 		new_node = Node(data)
 		new_node.set_next(self.head)
 		self.head = new_node
@@ -65,8 +65,8 @@ class LinkedList:
 
 
 myLL = LinkedList()
-myLL.append_tail("Hello")
-myLL.append_tail("Goodbye")
+myLL.add("Hello")
+myLL.add("Goodbye")
 print (myLL.find("Hello"))
 print (myLL.find("Goodbye"))
 print (myLL.length())
