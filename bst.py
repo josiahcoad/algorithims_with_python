@@ -92,9 +92,9 @@ class BSTmap:
 		if not current_node: return None
 		elif current_node.key == key: return current_node
 		elif key < current_node.key:
-			return self._get(key, current_node.l)
+			self._get(key, current_node.l)
 		else:
-			return self._get(key, current_node.r)
+			self._get(key, current_node.r)
 
 	def __getitem__(self, key):
 		return self.get(key)
@@ -102,7 +102,53 @@ class BSTmap:
 	def __contains__(self, key):
 		return self._get(key, self.root)
 
+		def delete(self, key):
+		if self.size > 1:
+			nodeToRemove = self.get(key, self.root)
+			if nodeToRemove:
+				self.remove(nodeToRemove)
+				self.size = self.size - 1
+			else:
+				raise KeyError('Error, key not in tree')
+		elif self.size == 1:
+			if self.root.key == key:
+				self.root = None
+				self.size = 0
+			else:
+				raise KeyError('Error, key not in tree')
 
+	def remove(self, currentNode):
+		if currentNode.isLeaf():
+			if currentNode == currentNode.parent.leftChild:
+				currentNode.parent.leftChild = None
+			else:
+				currentNode.parent.rightChild = None
+		else:
+			if currentNode.hasLeftChild():
+				if currentNode.isLeftChild():
+					currentNode.leftChild.parent = currentNode.parent
+					currentNode.parent.leftChild = currentNode.leftChild
+				elif currentNode.isRightChild():
+					currentNode.leftChild.parent = currentNode.parent
+					currentNode.parent.rightChild = currentNode.leftChild
+				else:
+					currentNode.replaceNodeData(currentNode.leftChild.key, 
+												currentNode.leftChild.payload,
+												currentNode.leftChild.leftChild,
+												currentNode.leftChild.rightChild)
+			else:
+				if currentNode.hasRightChild():
+					if currentNode.isLeftChild():
+						currentNode.rightChild.parent = currentNode.parent
+						currentNode.parent.leftChild = currentNode.rightChild
+					elif currentNode.isRightChild():
+						currentNode.rightChild.parent = currentNode.parent
+						currentNode.parent.rightChild = currentNode.rightChild
+					else:
+						currentNode.replaceNodeData(currentNode.rightChild.key,
+													currentNode.rightChild.payload,
+													currentNode.rightChild.leftChild,
+													currentNode.rightChild.rightChild)
 
 
 
